@@ -1,6 +1,6 @@
-package javaast
+package java_transformation
 
-import visitors.*
+import constructs.*
 
 class JavaFromAgreeNodes(val agreeNodes: Map< String, Map<NodeName, AgreeNode>>) {
 

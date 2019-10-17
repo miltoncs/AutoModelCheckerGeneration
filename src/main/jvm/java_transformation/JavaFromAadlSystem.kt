@@ -1,6 +1,6 @@
-package javaast
+package java_transformation
 
-import visitors.*
+import constructs.*
 import java.lang.Exception
 
 class JavaFromAadlSystem(private val structure: Map<String, AadlObject>,

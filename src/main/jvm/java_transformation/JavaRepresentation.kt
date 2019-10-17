@@ -1,6 +1,4 @@
-package javaast
-
-import visitors.AgreeCondition
+package java_transformation
 
 
 enum class JavaVisibility {

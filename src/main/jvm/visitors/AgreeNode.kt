@@ -2,6 +2,7 @@ package visitors
 
 import org.antlr.v4.runtime.tree.TerminalNode
 import antlr.aadl.*
+import constructs.*
 
 class AgreeNodeVisitor: AadlBaseVisitor<Map<String, Map<NodeName, AgreeNode>>>() {
 
@@ -75,4 +76,28 @@ class AgreeNodeExpressionVisitor: AadlBaseVisitor<AgreeExpression>() {
         b == AgreeExpression.Empty -> a
         else -> error("Can't combine expressions!   $a   $b")
     }
+}
+
+class AgreeValuesVisitor : AadlBaseVisitor<List<AgreeValue>>() {
+
+    override fun visitAssign(ctx: AadlParser.AssignContext?): List<AgreeValue> {
+        return listOf()
+    }
+
+    override fun visitVar_declaration(ctx: AadlParser.Var_declarationContext): List<AgreeValue> {
+
+        val type: String = if (ctx.type() == null)
+        {
+            "Object"
+        }
+        else {
+            TypeVisitor().visitType(ctx.type())
+        }
+
+        return listOf(AgreeValue(ctx.IDENTIFIER().text, type))
+    }
+
+    override fun aggregateResult(a: List<AgreeValue>, b: List<AgreeValue>): List<AgreeValue> = a + b
+
+    override fun defaultResult(): List<AgreeValue> = listOf()
 }

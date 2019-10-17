@@ -1,4 +1,6 @@
-package visitors
+package constructs
+
+typealias AadlObjectName = String
 
 data class AadlObject(var features: List<AadlFeature> = listOf(),
                       var connections: List<AadlConnection> = listOf(),

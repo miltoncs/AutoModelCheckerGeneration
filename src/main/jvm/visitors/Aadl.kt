@@ -1,7 +1,8 @@
 package visitors
 
-import visitors.AadlPort.PortType
+import constructs.AadlPort.PortType
 import antlr.aadl.*
+import constructs.*
 
 class StructureVisitor : AadlBaseVisitor<Map<AadlObjectName, AadlObject>>() {
 
@@ -66,10 +67,10 @@ class StructureInnerVisitor(val subcomponentMapping: Map<String, String>, val cu
         }
 
         return AadlConnection(connName = connName,
-                    srcObjectName = src[0],
-                    srcPortName = src[1],
-                    destObjectName = dest[0],
-                    destPortName = dest[1])
+                srcObjectName = src[0],
+                srcPortName = src[1],
+                destObjectName = dest[0],
+                destPortName = dest[1])
                 .asContext()
     }
 

@@ -15,7 +15,7 @@ class AppTest {
 
     @Test fun testCreateSkeleton() {
 
-        val input = File("/Users/mstafford/Projects/github.fit.edu/thesis/code/AADLTranslation/src/test/resources/big.aadl")
+        val input = File("/Users/mstafford/Projects/thesis/SafeStubGeneration/src/test/resources/big.aadl")
 
         val output = createSkeleton(input.readText())
 

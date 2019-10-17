@@ -2,6 +2,7 @@ package visitors
 
 import org.antlr.v4.runtime.tree.TerminalNode
 import antlr.aadl.*
+import constructs.AgreeCondition
 
 class ConditionsVisitor: AadlBaseVisitor<Map<String, List<AgreeCondition>>>() {
 
@@ -36,7 +37,7 @@ class ConditionsVisitorAssumeGuarantee: AadlBaseVisitor<List<AgreeCondition>>() 
                 listOf(AgreeCondition(
                         type = AgreeCondition.ConditionType.EQ,
                         expr = ConditionsVisitorExpression().visit(ctx.expression()),
-                        operands = ctx.var_declaration().map { it.text }
+                        operands = ctx.var_declaration().flatMap { AgreeValuesVisitor().visit(it) }.map { it.name }
                 ))
             } else {
                 listOf()
@@ -78,8 +79,8 @@ class ConditionsVisitorExpression: AadlBaseVisitor<String>() {
         else -> " ${ctx.IDENTIFIER().text}.get() "
     }
 
-    //todo this logic doesn't really belong here but oh well
-    override fun visitFunction_call(ctx: AadlParser.Function_callContext) = when (ctx.IDENTIFIER().text) {
+     //todo this logic doesn't really belong here but oh well // <-- is this true?
+     override fun visitFunction_call(ctx: AadlParser.Function_callContext) = when (ctx.IDENTIFIER().text) {
         "pre" -> "AadlUtil.${ctx.text}"
         else -> visitChildren(ctx)
     }
