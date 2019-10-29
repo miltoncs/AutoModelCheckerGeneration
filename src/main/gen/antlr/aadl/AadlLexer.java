@@ -1,4 +1,4 @@
-// Generated from /Users/mstafford/Projects/github.fit.edu/thesis/code/AADLTranslation/src/main/antlr/Aadl.g4 by ANTLR 4.7.2
+// Generated from /Users/mstafford/Projects/thesis/SafeStubGeneration/src/main/antlr/Aadl.g4 by ANTLR 4.7.2
 
     package antlr.aadl;
 
@@ -25,7 +25,7 @@ public class AadlLexer extends Lexer {
 		T__24=25, T__25=26, T__26=27, T__27=28, T__28=29, T__29=30, T__30=31, 
 		T__31=32, T__32=33, T__33=34, T__34=35, T__35=36, T__36=37, T__37=38, 
 		T__38=39, T__39=40, T__40=41, T__41=42, T__42=43, COMMENT=44, PORT_TYPE=45, 
-		LITERAL_STRING=46, EQ=47, AGREE=48, ANNEX=49, ANNEX_OPEN=50, ANNEX_CLOSE=51, 
+		LITERAL_STRING=46, EQUALS=47, AGREE=48, ANNEX=49, ANNEX_OPEN=50, ANNEX_CLOSE=51, 
 		BOOLEAN=52, NUM=53, IDENTIFIER=54, WS=55;
 	public static String[] channelNames = {
 		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"
@@ -42,8 +42,8 @@ public class AadlLexer extends Lexer {
 			"T__17", "T__18", "T__19", "T__20", "T__21", "T__22", "T__23", "T__24", 
 			"T__25", "T__26", "T__27", "T__28", "T__29", "T__30", "T__31", "T__32", 
 			"T__33", "T__34", "T__35", "T__36", "T__37", "T__38", "T__39", "T__40", 
-			"T__41", "T__42", "COMMENT", "PORT_TYPE", "LITERAL_STRING", "EQ", "AGREE", 
-			"ANNEX", "ANNEX_OPEN", "ANNEX_CLOSE", "BOOLEAN", "NUM", "IDENTIFIER", 
+			"T__41", "T__42", "COMMENT", "PORT_TYPE", "LITERAL_STRING", "EQUALS", 
+			"AGREE", "ANNEX", "ANNEX_OPEN", "ANNEX_CLOSE", "BOOLEAN", "NUM", "IDENTIFIER", 
 			"WS"
 		};
 	}
@@ -68,7 +68,7 @@ public class AadlLexer extends Lexer {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, null, null, null, null, "COMMENT", "PORT_TYPE", 
-			"LITERAL_STRING", "EQ", "AGREE", "ANNEX", "ANNEX_OPEN", "ANNEX_CLOSE", 
+			"LITERAL_STRING", "EQUALS", "AGREE", "ANNEX", "ANNEX_OPEN", "ANNEX_CLOSE", 
 			"BOOLEAN", "NUM", "IDENTIFIER", "WS"
 		};
 	}

@@ -1,4 +1,4 @@
-// Generated from /Users/mstafford/Projects/github.fit.edu/thesis/code/AADLTranslation/src/main/antlr/Aadl.g4 by ANTLR 4.7.2
+// Generated from /Users/mstafford/Projects/thesis/SafeStubGeneration/src/main/antlr/Aadl.g4 by ANTLR 4.7.2
 
     package antlr.aadl;
 
@@ -25,7 +25,7 @@ public class AadlParser extends Parser {
 		T__24=25, T__25=26, T__26=27, T__27=28, T__28=29, T__29=30, T__30=31, 
 		T__31=32, T__32=33, T__33=34, T__34=35, T__35=36, T__36=37, T__37=38, 
 		T__38=39, T__39=40, T__40=41, T__41=42, T__42=43, COMMENT=44, PORT_TYPE=45, 
-		LITERAL_STRING=46, EQ=47, AGREE=48, ANNEX=49, ANNEX_OPEN=50, ANNEX_CLOSE=51, 
+		LITERAL_STRING=46, EQUALS=47, AGREE=48, ANNEX=49, ANNEX_OPEN=50, ANNEX_CLOSE=51, 
 		BOOLEAN=52, NUM=53, IDENTIFIER=54, WS=55;
 	public static final int
 		RULE_aadl = 0, RULE_aadlPackage = 1, RULE_packageBody = 2, RULE_typeAlias = 3, 
@@ -70,7 +70,7 @@ public class AadlParser extends Parser {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, null, null, null, null, "COMMENT", "PORT_TYPE", 
-			"LITERAL_STRING", "EQ", "AGREE", "ANNEX", "ANNEX_OPEN", "ANNEX_CLOSE", 
+			"LITERAL_STRING", "EQUALS", "AGREE", "ANNEX", "ANNEX_OPEN", "ANNEX_CLOSE", 
 			"BOOLEAN", "NUM", "IDENTIFIER", "WS"
 		};
 	}
@@ -1716,7 +1716,7 @@ public class AadlParser extends Parser {
 		public Var_declarationContext var_declaration(int i) {
 			return getRuleContext(Var_declarationContext.class,i);
 		}
-		public TerminalNode EQ() { return getToken(AadlParser.EQ, 0); }
+		public TerminalNode EQUALS() { return getToken(AadlParser.EQUALS, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
@@ -1767,10 +1767,10 @@ public class AadlParser extends Parser {
 			setState(265);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (_la==EQ) {
+			if (_la==EQUALS) {
 				{
 				setState(263);
-				match(EQ);
+				match(EQUALS);
 				setState(264);
 				expression();
 				}
@@ -2381,7 +2381,7 @@ public class AadlParser extends Parser {
 	}
 
 	public static class OperationContext extends ParserRuleContext {
-		public TerminalNode EQ() { return getToken(AadlParser.EQ, 0); }
+		public TerminalNode EQUALS() { return getToken(AadlParser.EQUALS, 0); }
 		public OperationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -2410,7 +2410,7 @@ public class AadlParser extends Parser {
 			{
 			setState(333);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__19) | (1L << T__32) | (1L << T__33) | (1L << T__34) | (1L << T__35) | (1L << T__36) | (1L << T__37) | (1L << T__38) | (1L << T__39) | (1L << T__40) | (1L << T__41) | (1L << T__42) | (1L << EQ))) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__19) | (1L << T__32) | (1L << T__33) | (1L << T__34) | (1L << T__35) | (1L << T__36) | (1L << T__37) | (1L << T__38) | (1L << T__39) | (1L << T__40) | (1L << T__41) | (1L << T__42) | (1L << EQUALS))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {

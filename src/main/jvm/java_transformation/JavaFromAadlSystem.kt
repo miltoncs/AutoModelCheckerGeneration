@@ -1,26 +1,22 @@
 package java_transformation
 
 import constructs.*
-import java.lang.Exception
 
 class JavaFromAadlSystem(private val structure: Map<String, AadlObject>,
                          private val conditions: Map<String, List<AgreeCondition>>,
-                         private val agreeVars: Map<String, List<AgreeValue>>) {
+                         private val agreeVars: Map<String, List<AgreeValue>>,
+                         private val agreeNodes: Map<String, Map<NodeName, AgreeNode>>) {
 
     private val javaVoidType = "void"
 
     private fun build(): List<JavaClass> = structure.flatMap { (name, pkg) ->
-        try {
-            listOf(buildAbstractClass(
-                            objectName = name,
-                            objectStructure = pkg,
-                            objectConditions = conditions[name]!!,
-                            agreeVars = agreeVars[name]!!),
-                    buildStubClass(name))
-        } catch (e: Exception) {
-            error("JavaBuilder.buildClass(): Something weird happened... maybe got null for object maps.")
+        listOf(buildAbstractClass(
+                        objectName = name,
+                        objectStructure = pkg,
+                        objectConditions = conditions[name]!!,
+                        agreeVars = agreeVars[name]!!),
+                buildStubClass(name))
         }
-    }
 
     private fun buildAbstractClass(objectName: String,
                                    objectStructure: AadlObject,
@@ -42,8 +38,8 @@ class JavaFromAadlSystem(private val structure: Map<String, AadlObject>,
                 )
 
                 val assignments = objectConditions
-                        .filter { it.type == AgreeCondition.ConditionType.EQ }
-                        .asJavaAssignments()
+                        .filter { it.type == AgreeCondition.ConditionType.ASSIGNMENT }
+                        .map { it.expr.alignMethodCalls() }
 
                 val assumptions = objectConditions
                         .filter { it.type == AgreeCondition.ConditionType.ASSUME }
@@ -75,6 +71,19 @@ class JavaFromAadlSystem(private val structure: Map<String, AadlObject>,
     private fun javaUpdatePortValue(it: AadlConnection): String =
             "${JavaName(it.destObjectName)}.${JavaName(it.destPortName)}.set(${it.srcPortName}.get())"
 
+    private fun String.alignMethodCalls(): String = when {
+        "[[" in this -> {
+
+            val fullFunName = substringAfter("[[").substringBefore("//")
+            val (packageName, funName) = fullFunName.split(".").let { it[0] to it[1] }
+            val fieldNumber: Int = substringAfter("//").substringBefore("]]").toInt()
+            val field = agreeNodes[packageName]!![funName]!!.returns[fieldNumber].name
+
+            substringBefore("[[") + ".$field" + substringAfter("]]")
+        }
+        else -> this
+    }
+
     private fun String.asUnCheckedMethodName() = "unchecked_$this"
     private fun String.asCheckedMethodName() = "checked_$this"
 
@@ -88,8 +97,6 @@ class JavaFromAadlSystem(private val structure: Map<String, AadlObject>,
                             type = javaVoidType))
         }
 
-    override fun toString(): String = build().joinToString(separator = "\n\n")
-
     private fun String.asJavaMemoryObject(): String {
         val innerType = when(this) {
             "boolean" -> "Boolean"
@@ -100,25 +107,9 @@ class JavaFromAadlSystem(private val structure: Map<String, AadlObject>,
         }
         return "AadlMemoryObject<$innerType>"
     }
+
+    private fun List<AgreeCondition>.asJavaAssertions() = this.map { "assert ${it.expr.alignMethodCalls()}" }
+
+    override fun toString(): String = build().joinToString(separator = "\n\n")
 }
 
-private fun List<AgreeCondition>.asJavaAssignments() = this.flatMap { compound ->
-    compound.operands.map { singleName ->
-        "$singleName = ${compound.expr}"
-    }
-}
-
-
-fun List<AgreeCondition>.asJavaAssertions() = this.map { "assert ${it.usingJavaMemoryObjects()}" }
-
-private fun AgreeCondition.usingJavaMemoryObjects(): String {
-    var result = expr
-
-//    result = result.replace("pre(", "AadlUtil.pre(") //todo this is done in the ConditionsVisitor for now....
-
-//    for (identifier in operands) {
-//        result = result.replace(Regex("(?> )$identifier(?> )"), " $identifier.get() ") //todo this is done in the conditions visitor for now
-//    }
-
-    return result
-}

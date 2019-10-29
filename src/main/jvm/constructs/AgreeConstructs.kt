@@ -24,6 +24,6 @@ data class AgreeIfExpression(val predicate: AgreeExpression,
                              val falseBlock: AgreeExpression): AgreeExpression()
 
 data class AgreeCondition(val type: ConditionType, val expr: String, val operands: List<String>) {
-    enum class ConditionType { ASSUME, GUARANTEE, EQ }
+    enum class ConditionType { ASSUME, GUARANTEE, ASSIGNMENT }
     override fun toString(): String = expr
 }

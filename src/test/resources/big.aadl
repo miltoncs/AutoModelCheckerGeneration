@@ -300,3 +300,18 @@ tel;
 
 
 end composite_nodes;
+
+
+
+
+package tcas_nodes
+public
+annex agree {**
+
+			node abs_diff(a: int, b: int) returns(d: int);
+			let
+				d = if ((a-b) < 0) then b - a else a - b;
+			tel;
+
+	**};
+end tcas_nodes;

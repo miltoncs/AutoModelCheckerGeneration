@@ -1,4 +1,4 @@
-// Generated from /Users/mstafford/Projects/github.fit.edu/thesis/code/AADLTranslation/src/main/antlr/Aadl.g4 by ANTLR 4.7.2
+// Generated from /Users/mstafford/Projects/thesis/SafeStubGeneration/src/main/antlr/Aadl.g4 by ANTLR 4.7.2
 
     package antlr.aadl;
 

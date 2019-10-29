@@ -2,10 +2,8 @@ package main
 
 import antlr.aadl.AadlLexer
 import antlr.aadl.AadlParser
-import constructs.AadlObject
-import constructs.AadlObjectName
-import constructs.AgreeValue
-import java_transformation.JavaConstantLibrary.Companion.javaMemoryObjectClasses
+import constructs.*
+import java_transformation.JavaConstantLibrary.lib.javaMemoryObjectClasses
 import java_transformation.JavaFromAadlSystem
 import java_transformation.JavaFromAgreeNodes
 import org.antlr.v4.runtime.CharStreams
@@ -26,9 +24,11 @@ fun createSkeleton(input: String): String {
 
     val agreeVars: Map<AadlObjectName, List<AgreeValue>> = AadlObjectToAgreeValues().visit(tree)
 
-    val translatedAgreeNodes = JavaFromAgreeNodes(AgreeNodeVisitor().visit(tree)).build()
+    val agreeNodes: Map<String, Map<NodeName, AgreeNode>> = AgreeNodeVisitor().visit(tree)
 
-    return JavaFromAadlSystem(structure, conditions, agreeVars).toString() + javaMemoryObjectClasses + translatedAgreeNodes
+    val translatedAgreeNodes = JavaFromAgreeNodes(agreeNodes).build()
+
+    return JavaFromAadlSystem(structure, conditions, agreeVars, agreeNodes).toString() + javaMemoryObjectClasses + translatedAgreeNodes
 }
 /*
 TODO

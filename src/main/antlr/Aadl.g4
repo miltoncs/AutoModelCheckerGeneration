@@ -34,7 +34,7 @@ agreeStatement: ( equation | constant | assume | guarantee | assign ) ';';
 equation: 'eq' assignment;
 constant: 'const' assignment ;
 assign: 'assign' assignment ;
-assignment: var_declaration (',' var_declaration)* (EQ expression)?;
+assignment: var_declaration (',' var_declaration)* (EQUALS expression)?;
 var_declaration: IDENTIFIER (':' type)? ;
 assume: 'assume' LITERAL_STRING ':' expression;
 guarantee: 'guarantee' LITERAL_STRING ':' expression;
@@ -44,12 +44,12 @@ value: ('(' value ')') | BOOLEAN | NUM | LITERAL_STRING | IDENTIFIER | if_expres
 if_expression: 'if' expression 'then' expression 'else' expression ;
 function_call: IDENTIFIER '(' expression? (',' expression)* ')' ;
 type: IDENTIFIER ('::' IDENTIFIER)? ;
-operation: '+' | '-' | '*' | '/' | '=>' | '->' | '>' | '<' | '<=' | '>=' | EQ | 'and' | 'or';
+operation: '+' | '-' | '*' | '/' | '=>' | '->' | '>' | '<' | '<=' | '>=' | EQUALS | 'and' | 'or';
 
 COMMENT: '--' ~[\n]* -> skip;
 PORT_TYPE: ('in' | 'out') ;
 LITERAL_STRING: '"' ~["]* '"' ;
-EQ: '=';
+EQUALS: '=';
 AGREE: 'agree' ;
 ANNEX: 'annex' ;
 ANNEX_OPEN: '{**' ;

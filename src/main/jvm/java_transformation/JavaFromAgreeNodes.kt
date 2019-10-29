@@ -2,7 +2,7 @@ package java_transformation
 
 import constructs.*
 
-class JavaFromAgreeNodes(val agreeNodes: Map< String, Map<NodeName, AgreeNode>>) {
+class JavaFromAgreeNodes(private val agreeNodes: Map< String, Map<NodeName, AgreeNode>>) {
 
     private fun nodeToJava(nodeName: String, node: AgreeNode): Pair<JavaMethod, JavaClass> {
 
@@ -29,7 +29,7 @@ class JavaFromAgreeNodes(val agreeNodes: Map< String, Map<NodeName, AgreeNode>>)
 
     private fun returnCall(returnType: String, returns: List<AgreeValue>) = "return new $returnType(${returns.joinToString(separator = ", ") {it.name}})"
 
-    fun AgreeExpression.toJava() = when(this) {
+    private fun AgreeExpression.toJava() = when(this) {
         is AgreeIfExpression -> toJava()
         is AgreeOperationExpression -> toJava()
         is AgreeExpressionLiteral -> expr
@@ -37,19 +37,19 @@ class JavaFromAgreeNodes(val agreeNodes: Map< String, Map<NodeName, AgreeNode>>)
         AgreeExpression -> error("Reached Empty.... might be bad....")
     }
 
-    fun AgreeOperationExpression.toJava():String = "(${leftExpr.toJava()} ${operator.toJavaOperator()} ${rightExpr.toJava()})"
+    private fun AgreeOperationExpression.toJava():String = "(${leftExpr.toJava()} ${operator.toJavaOperator()} ${rightExpr.toJava()})"
 
-    fun AgreeIfExpression.toJava():String = "(${predicate.toJava()}) ? (" +
+    private fun AgreeIfExpression.toJava():String = "(${predicate.toJava()}) ? (" +
             trueBlock.toJava().indent() +
             ") : (" +
             falseBlock.toJava().indent() +
             ")"
 
-    fun AgreeFunctionCallExpression.toJava() = "$functionName(" +
+    private fun AgreeFunctionCallExpression.toJava() = "$functionName(" +
             functionArgs.joinToString(separator = ", ") +
             ")"
 
-    fun String.toJavaOperator() = when(this) {
+    private fun String.toJavaOperator() = when(this) {
         "and" -> "&&"
         "or" -> "||"
         else -> this
@@ -78,5 +78,5 @@ class JavaFromAgreeNodes(val agreeNodes: Map< String, Map<NodeName, AgreeNode>>)
 
 }
 fun String.indent(): String = lines().indent()
-fun List<String>.indent(): String = map { "\n    $it" }.joinToString(separator = "") + "\n"
+fun List<String>.indent(): String = joinToString(separator = "") { "\n    $it" } + "\n"
 
