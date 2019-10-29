@@ -67,10 +67,9 @@ class JavaFromAgreeNodes(private val agreeNodes: Map< String, Map<NodeName, Agre
                 translatedMethods += methodAndClass.first
                 helperClasses += methodAndClass.second
             }
-
-            val allTranslatedMethodsClass = JavaClass(name = pkg.key, methods = translatedMethods)
-            allClasses += helperClasses + allTranslatedMethodsClass
+            allClasses += JavaClass(name = pkg.key, methods = translatedMethods)
         }
+        allClasses += helperClasses
 
 
         return allClasses.joinToString(separator = "\n\n")
